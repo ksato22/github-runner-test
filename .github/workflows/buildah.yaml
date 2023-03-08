@@ -17,6 +17,11 @@ jobs:
       - name: Clone the repository
         uses: actions/checkout@v3
 
+      - name: Install Buildah
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install buildah
+
       - name: Buildah Action
         uses: redhat-actions/buildah-build@v2
         with:
