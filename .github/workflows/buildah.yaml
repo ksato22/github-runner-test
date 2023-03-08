@@ -1,0 +1,27 @@
+name: Build ubi-flask container
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build image
+    runs-on: [self-hosted, Linux, X64]
+    env:
+      IMAGE_NAME: ubi-flask
+      REGISTRY: ghcr.io/major
+    steps:
+
+      - name: Clone the repository
+        uses: actions/checkout@v3
+
+      - name: Buildah Action
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: latest ${{ github.sha }}
+          containerfiles: |
+            ./Containerfile
