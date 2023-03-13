@@ -9,7 +9,7 @@ jobs:
   build:
     name: Build image
 #     runs-on: [self-hosted, Linux, X64]
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ubi-flask
       REGISTRY: ghcr.io/major
