@@ -51,4 +51,4 @@ jobs:
         containerfiles: |
           ./Containerfile
         build-args: |
-          some_arg=some_value
+          privileged=true
