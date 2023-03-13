@@ -8,7 +8,8 @@ on:
 jobs:
   build:
     name: Build image
-    runs-on: [self-hosted, Linux, X64]
+#     runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu
     env:
       IMAGE_NAME: ubi-flask
       REGISTRY: ghcr.io/major
@@ -17,12 +18,12 @@ jobs:
       - name: Clone the repository
         uses: actions/checkout@v3
 
-      - name: Install Buildah
-        run: |
-          apt-get -y install buildah
+#       - name: Install Buildah
+#         run: |
+#           apt-get -y install buildah
 
       - name: Buildah Action
-        uses: redhat-actions/buildah-build@v2
+        uses: redhat-actions/buildah-build@v2.12
         with:
           image: my-new-image
           tags: v1 ${{ github.sha }}
