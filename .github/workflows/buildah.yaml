@@ -1,31 +1,52 @@
-name: Build ubi-flask container
-on:
-  push:
-    branches: [ "main" ]
+# name: Build ubi-flask container
+# on:
+#   push:
+#     branches: [ "main" ]
 
-  workflow_dispatch:
+#   workflow_dispatch:
+
+# jobs:
+#   build:
+#     name: Build image
+#     runs-on: [self-hosted, Linux, X64]
+# #     runs-on: ubuntu-latest
+#     env:
+#       IMAGE_NAME: ubi-flask
+#       REGISTRY: ghcr.io/major
+#     steps:
+
+#       - name: Clone the repository
+#         uses: actions/checkout@v3
+
+# #       - name: Install Buildah
+# #         run: |
+# #           apt-get -y install buildah
+
+#       - name: Buildah Action
+#         uses: redhat-actions/buildah-build@v2.12
+#         with:
+#           image: my-new-image
+#           tags: v1 ${{ github.sha }}
+#           containerfiles: |
+#             ./Containerfile
+
+name: Build Image using Containerfile
+on: [push]
 
 jobs:
   build:
     name: Build image
-    runs-on: [self-hosted, Linux, X64]
-#     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: ubi-flask
-      REGISTRY: ghcr.io/major
+    runs-on: ubuntu-latest
+
     steps:
+    - uses: actions/checkout@v3
 
-      - name: Clone the repository
-        uses: actions/checkout@v3
-
-#       - name: Install Buildah
-#         run: |
-#           apt-get -y install buildah
-
-      - name: Buildah Action
-        uses: redhat-actions/buildah-build@v2.12
-        with:
-          image: my-new-image
-          tags: v1 ${{ github.sha }}
-          containerfiles: |
-            ./Containerfile
+    - name: Buildah Action
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: my-new-image
+        tags: v1 ${{ github.sha }}
+        containerfiles: |
+          ./Containerfile
+        build-args: |
+          some_arg=some_value
