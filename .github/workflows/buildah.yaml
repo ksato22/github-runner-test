@@ -51,4 +51,4 @@ jobs:
         containerfiles: |
           ./Containerfile
         build-args: |
-          privileged=true
+          isolation=chroot
